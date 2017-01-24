@@ -2,9 +2,8 @@ var express = require('express');
 var app = express();
 var PORT = process.env.PORT || 3000;
 
-app.get('/:timestamp', function(req, res){
+app.app.get('/:timestamp', function(req, res){
     var timestamp = req.params.timestamp;
-    res.send('Timestamp: '+ timestamp);
     res.json(getTimestampJSON(timestamp));
 });
     
@@ -21,17 +20,24 @@ function getTimestampJSON(timestamp){
     };
     
     var date;
-    if(!isNAN(parseInt(timestamp))){
+    if(!isNaN(parseInt(timestamp))){
         date = new Date(parseInt(timestamp));
     }else{
-        date = new Date(timestamp)
+        date = new Date(timestamp);
     }
     
-    if(!isNAN(date.getTime())){
+    if(!isNaN(date.getTime())){
         
         result.unix = date.getTime();
-        result.natural = 'in due time';
+        result.natural = getNaturalDate(date);
     }
     
     return result;
+}
+
+function getNaturalDate(date){
+    var months = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    
+    return months[date.getMonth()]+' '+date.getDate()+', '+date.getFullYear();
+    
 }
