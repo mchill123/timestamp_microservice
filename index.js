@@ -1,13 +1,19 @@
 var express = require('express');
 var app = express();
+var path = require('path');
 var PORT = process.env.PORT || 3000;
+
+
 
 app.get('/:timestamp', function(req, res){
     var timestamp = req.params.timestamp;
     res.json(getTimestampJSON(timestamp));
 });
     
-
+app.get('/', function(req,res){
+    var filename = path.join(__dirname, 'index.html')
+    res.sendFile(filename);
+});
 
 app.listen(PORT, function(){
     console.log('server is listening on port ' + PORT);
