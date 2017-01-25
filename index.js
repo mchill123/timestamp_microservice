@@ -11,7 +11,7 @@ app.get('/:timestamp', function(req, res){
 });
     
 app.get('/', function(req,res){
-    var filename = path.join(__dirname, 'index.html')
+    var filename = path.join(__dirname, 'index.html');
     res.sendFile(filename);
 });
 
